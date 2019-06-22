@@ -4,7 +4,8 @@ SRCS =	verify_out.f90 mod_adf95.f90
 
 OBJS =	verify_out.o mod_adf95.o
 
-F90 = ifort
+# F90 = ifort
+F90 = gfortran
 F90FLAGS = #-O
 LDFLAGS  = #-O
 

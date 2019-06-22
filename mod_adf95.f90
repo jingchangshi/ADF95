@@ -38,6 +38,8 @@ module mod_ADF95types
   use mod_precision
   use mod_ADF95defs, only : LDsize
   
+  use, intrinsic :: ieee_arithmetic, only : ieee_value, ieee_quiet_nan
+
   !core data structure: double precision
   type ADF95_dpr
      real   (dpr)                      :: value  = 0.0_dpr
@@ -1978,25 +1980,30 @@ module mod_ADF95types
                minvec%deriv(1:lenc) = vec(i)%deriv(1:lenc)
                minvec%index(0:lenc) = vec(i)%index(0:lenc)
                !Note: derivative not defined: return NaN
-               minvec%deriv(vec(loc(1))%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! minvec%deriv(vec(loc(1))%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               minvec%deriv(vec(loc(1))%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                lenc = vec(loc(1))%index(0)
                where(vec(i)%deriv(1:lenc) .ne. vec(loc(1))%deriv(1:lenc))
                   !Note: derivative not defined: return NaN
-                  minvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  ! minvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  minvec%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                endwhere
             else if(vec(i)%index(0) .lt. vec(loc(1))%index(0)) then
                !Note: derivative not defined: return NaN
-               minvec%deriv(vec(i)%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! minvec%deriv(vec(i)%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               minvec%deriv(vec(i)%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                lenc = vec(i)%index(0)
                where(vec(i)%deriv(1:lenc) .ne. vec(loc(1))%deriv(1:lenc))
                   !Note: derivative not defined: return NaN
-                  minvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  ! minvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  minvec%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                endwhere
             else
                lenc = vec(i)%index(0)
                where(vec(i)%deriv(1:lenc) .ne. vec(loc(1))%deriv(1:lenc))
                   !Note: derivative not defined: return NaN
-                  minvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  ! minvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  minvec%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                endwhere
             endif
          endif
@@ -2050,25 +2057,30 @@ module mod_ADF95types
                maxvec%deriv(1:lenc) = vec(i)%deriv(1:lenc)
                maxvec%index(0:lenc) = vec(i)%index(0:lenc)
                !Note: derivative not defined: return NaN
-               maxvec%deriv(vec(loc(1))%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! maxvec%deriv(vec(loc(1))%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               maxvec%deriv(vec(loc(1))%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                lenc = vec(loc(1))%index(0)
                where(vec(i)%deriv(1:lenc) .ne. vec(loc(1))%deriv(1:lenc))
                   !Note: derivative not defined: return NaN
-                  maxvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  ! maxvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  maxvec%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                endwhere
             else if(vec(i)%index(0) .lt. vec(loc(1))%index(0)) then
                !Note: derivative not defined: return NaN
-               maxvec%deriv(vec(i)%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! maxvec%deriv(vec(i)%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+               maxvec%deriv(vec(i)%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                lenc = vec(i)%index(0)
                where(vec(i)%deriv(1:lenc) .ne. vec(loc(1))%deriv(1:lenc))
                   !Note: derivative not defined: return NaN
-                  maxvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  ! maxvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  maxvec%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                endwhere
             else
                lenc = vec(i)%index(0)
                where(vec(i)%deriv(1:lenc) .ne. vec(loc(1))%deriv(1:lenc))
                   !Note: derivative not defined: return NaN
-                  maxvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  ! maxvec%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+                  maxvec%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
                endwhere
             endif
          endif
@@ -2129,28 +2141,33 @@ module mod_ADF95types
             minc%deriv(1:lenc) = a%deriv(1:lenc)
             minc%index(0:lenc) = a%index(0:lenc)
             !Note: derivative not defined: return NaN
-            minc%deriv(b%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! minc%deriv(b%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            minc%deriv(b%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             lenc = b%index(0)
             where(a%deriv(1:lenc) .ne. b%deriv(1:lenc))
                !Note: derivative not defined: return NaN
-               minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               minc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             endwhere
          else if(a%index(0) .lt. b%index(0)) then
             lenc = b%index(0)
             minc%deriv(1:lenc) = b%deriv(1:lenc)
             minc%index(0:lenc) = b%index(0:lenc)
             !Note: derivative not defined: return NaN
-            minc%deriv(a%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! minc%deriv(a%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            minc%deriv(a%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             lenc = a%index(0)
             where(a%deriv(1:lenc) .ne. b%deriv(1:lenc))
                !Note: derivative not defined: return NaN
-               minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               minc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             endwhere
          else
             lenc = a%index(0)
             where(a%deriv(1:lenc) .ne. b%deriv(1:lenc))
                !Note: derivative not defined: return NaN
-               minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               minc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             endwhere
          endif
       endif
@@ -2181,7 +2198,8 @@ module mod_ADF95types
          minc%index(0:lenc) = a%index(0:lenc)
          where(a%deriv(1:lenc) .ne. 0.0_dpr)
             !Note: derivative not defined: return NaN
-            minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            minc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
          endwhere
       endif
     end function min_value2
@@ -2211,7 +2229,8 @@ module mod_ADF95types
          minc%index(0:lenc) = b%index(0:lenc)
          where(b%deriv(1:lenc) .ne. 0.0_dpr)
             !Note: derivative not defined: return NaN
-            minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! minc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            minc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
          endwhere
       endif
     end function min_value3
@@ -2242,28 +2261,33 @@ module mod_ADF95types
             maxc%deriv(1:lenc) = a%deriv(1:lenc)
             maxc%index(0:lenc) = a%index(0:lenc)
             !Note: derivative not defined: return NaN
-            maxc%deriv(b%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! maxc%deriv(b%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            maxc%deriv(b%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             lenc = b%index(0)
             where(a%deriv(1:lenc) .ne. b%deriv(1:lenc))
-               !Note: derivative not defined: return NaN
-               maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+              !Note: derivative not defined: return NaN
+              ! maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+              maxc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             endwhere
          else if(a%index(0) .lt. b%index(0)) then
             lenc = b%index(0)
             maxc%deriv(1:lenc) = b%deriv(1:lenc)
             maxc%index(0:lenc) = b%index(0:lenc)
             !Note: derivative not defined: return NaN
-            maxc%deriv(a%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! maxc%deriv(a%index(0)+1:lenc) = -sqrt(asin(-1.0_dpr))
+            maxc%deriv(a%index(0)+1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             lenc = a%index(0)
             where(a%deriv(1:lenc) .ne. b%deriv(1:lenc))
                !Note: derivative not defined: return NaN
-               maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               maxc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             endwhere
          else
             lenc = a%index(0)
             where(a%deriv(1:lenc) .ne. b%deriv(1:lenc))
                !Note: derivative not defined: return NaN
-               maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               ! maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+               maxc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
             endwhere
          endif
       endif
@@ -2294,7 +2318,8 @@ module mod_ADF95types
          maxc%index(0:lenc) = a%index(0:lenc)
          where(a%deriv(1:lenc) .ne. 0.0_dpr)
             !Note: derivative not defined: return NaN
-            maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            maxc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
          endwhere
       endif
     end function max_value2
@@ -2324,7 +2349,8 @@ module mod_ADF95types
          maxc%index(0:lenc) = b%index(0:lenc)
          where(b%deriv(1:lenc) .ne. 0.0_dpr)
             !Note: derivative not defined: return NaN
-            maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            ! maxc%deriv(1:lenc) = -sqrt(asin(-1.0_dpr))
+            maxc%deriv(1:lenc) = ieee_value(1.0_dpr,ieee_quiet_nan)
          endwhere
       endif
     end function max_value3
@@ -2508,7 +2534,8 @@ module mod_ADF95types
          elsewhere
             !Note: Undefined derivative at a%value = 0; discontinous function
             !assign NaN (Not a Number) Sign information returned!
-            f%deriv(1:lena) = -sqrt(asin(-1.0_dpr))*sign(1.0_dpr,a%value)
+            ! f%deriv(1:lena) = -sqrt(asin(-1.0_dpr))*sign(1.0_dpr,a%value)
+            f%deriv(1:lena) = ieee_value(1.0_dpr,ieee_quiet_nan)*sign(1.0_dpr,a%value)
          endwhere
       else
          f%deriv(1:lena) = sign(1.0_dpr,a%value) * a%deriv(1:lena)
